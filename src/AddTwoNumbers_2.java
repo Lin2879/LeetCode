@@ -16,41 +16,21 @@ public class AddTwoNumbers_2 {
 
     static class Solution {
         public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-            boolean leftFlag = true;
-            boolean rightFlag = true;
-            boolean carry = false;
+            int sum = 0;
             ListNode result = new ListNode(0);
             ListNode cur = result;
-            int sum = 0;
-            while (leftFlag || rightFlag || carry) {
-                if (leftFlag) {
+            while (l1 != null || l2 != null || sum != 0) {
+                if (l1 != null) {
                     sum += l1.val;
-                    if (l1.next != null) {
-                        l1 = l1.next;
-                    } else {
-                        leftFlag = false;
-                    }
+                    l1 = l1.next;
                 }
-                if (rightFlag) {
+                if (l2 != null) {
                     sum += l2.val;
-                    if (l2.next != null) {
-                        l2 = l2.next;
-                    } else {
-                        rightFlag = false;
-                    }
+                    l2 = l2.next;
                 }
-                if (carry) {
-                    sum += 1;
-                }
-                if (sum >= 10) {
-                    carry = true;
-                    sum = sum - 10;
-                } else {
-                    carry = false;
-                }
-                cur.next = new ListNode(sum);
+                cur.next = new ListNode(sum % 10);
                 cur = cur.next;
-                sum = 0;
+                sum = sum / 10;
             }
             return result.next;
         }
